@@ -1,30 +1,38 @@
-//*********************THIS LINE IS 80 CHARACTERS LONG**************************
+//******************************************************************************
+float screenWidth = 1000;
+float screenHeight = 500;
+Circle[] circles = {new Circle("bad haircuts", 250, 250, 50),
+                    new Circle("absurd things", 300, 300, 50)};
+String[] goals = {"No", "Some"};
+PFont BaskOldFace;
+String currentScreen = "In-Game";
+MenuButton mButton = new MenuButton(screenWidth - 50, 5, 50, 20);
 
 void setup() {
-  size(400, 400);
-  frameRate(40);
+  size(1000, 500);
+  BaskOldFace = loadFont("BaskOldFace-48.vlw");
 }
 
 void draw() {
   background(0);
-  stroke(255);
-  fill(0);
-  ellipse(200, 200, 100, 100);
-  //ellipse(200, 250, 100, 100);
+  drawCircleArray(circles);
+  drawGUI();
 }
 
 void mousePressed() {
-  int circleCenterX = 200;
-  int circleCenterY = 200;
-  float circleRadius = 50;
-  float distanceFromCircleCenter = sqrt(pow((mouseX - circleCenterX), 2) + 
-                                  pow((mouseY - circleCenterY), 2));
-  if (((circleRadius - 5.0) < distanceFromCircleCenter) && 
-      (distanceFromCircleCenter < (circleRadius + 5.0))){
-    print(distanceFromCircleCenter + "\n");
+  if (mouseButton == LEFT) {
+    checkForSelectedCirclesInArray(circles);
   }
 }
 
-void mouseDragged() {
-  
+void mouseReleased() {
+  deselectCirclesInArray(circles);
 }
+
+void mouseDragged() {
+  if (mouseButton == LEFT) {
+    dragSelectedCirclesIn(circles);
+    resizeSelectedCirclesIn(circles);
+  }
+}
+
