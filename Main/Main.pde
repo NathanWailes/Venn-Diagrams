@@ -17,6 +17,8 @@ int questionStartTime = (hour() * 3600) + (minute() * 60) + second();
 import ddf.minim.*;
 Minim minim;
 AudioPlayer player;
+AudioPlayer click;
+AudioPlayer question_complete;
 
 void setup() {
   size(1000, 500);
@@ -24,6 +26,8 @@ void setup() {
   minim = new Minim(this);
   player = minim.loadFile("theme.mp3");
   player.play();
+  click = minim.loadFile("click.wav");
+  question_complete = minim.loadFile("question_complete.wav");
 }
 
 void draw() {

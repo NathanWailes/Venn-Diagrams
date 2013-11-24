@@ -165,3 +165,36 @@ class Goal {
     name = _name;
   }
 }
+
+
+void checkIfQuestionIsComplete() {
+  //check to see if all the goals have been completed; if so, go to next Q
+  int completedGoals = 0;
+  for (int i = 0; i < goals.length; i++) {
+    for (int j = 0; j < goals[i].length; j++) {
+      if (j == i) {
+        continue;
+      } else if (goals[i][j].isComplete == true) {
+        completedGoals++;
+      }
+    }
+  }
+  int numOfAllGoals = int(pow((goals.length), 2)) - goals.length;
+  if ((completedGoals == numOfAllGoals) && (mousePressed == false)){
+    currentQuestion.isComplete = true;
+    question_complete.play();
+    question_complete = minim.loadFile("question_complete.wav");
+  }
+
+  Question lastQuestion = test1.questions[(test1.questions.length - 1)];
+  if (currentQuestion.isComplete && (currentQuestion != lastQuestion)) {
+    currentQuestionIndex++;
+    currentQuestion = test1.questions[currentQuestionIndex];
+    circles = currentQuestion.circles;
+    goals = currentQuestion.goals;
+  } else if (currentQuestion.isComplete && (currentQuestion == lastQuestion)) {
+    test1.isComplete = true;
+    currentScreen = "Menu";
+  }
+}
+
